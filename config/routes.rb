@@ -2,7 +2,7 @@ EmberApp::Application.routes.draw do
   class FormatTest
     attr_accessor :mime_type
 
-    def initialze(format)
+    def initialize(format)
       @mime_type = Mime::Type.lookup_by_extension(format)
     end
 
@@ -11,9 +11,10 @@ EmberApp::Application.routes.draw do
     end
   end
 
-  resources :users, :execpt => :edit, :constraints => FormatTest.new(:json)
+  resources :users, :except => :edit, :constraints => FormatTest.new(:json)
   get '*foo', :to => 'ember#index', :constraints => FormatTest.new(:html)
   get '/', :to => 'ember#index', :constraints => FormatTest.new(:html)
+end
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -70,4 +71,4 @@ EmberApp::Application.routes.draw do
   # This is a legacy wild controller route that's not recommended for RESTful applications.
   # Note: This route will make all actions in every controller accessible via GET requests.
   # match ':controller(/:action(/:id))(.:format)'
-end
+
